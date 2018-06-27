@@ -1,10 +1,9 @@
-<ul class="">
-  <li *ngFor="let category of categories">
-
-      <span class="badge">{{category.id}}</span> {{category.name}}
-
-
-  </li>
-</ul>
-
+<div class="card mt-5" *ngFor="let category of categories" >
+  <div class="card-header">
+    {{category.id}}) {{category.name}}
+  </div>
+  <ul class="list-group list-group-flush">
+    <app-notes [category]="category"></app-notes>
+  </ul>
+</div>
 

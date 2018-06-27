@@ -8,12 +8,13 @@ import { AppRoutingModule } from './/app-routing.module';
 import { CategoriesComponent } from './categories/categories.component';
 import { CategoryDetailComponent } from './category-detail/category-detail.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
     NotesComponent,
     CategoriesComponent,
-    CategoryDetailComponent
+    CategoryDetailComponent,
   ],
   imports: [
     BrowserModule,

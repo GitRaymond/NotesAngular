@@ -16,8 +16,8 @@ export class CategoriesComponent implements OnInit {
 
   constructor(
     private categoryService: CategoriesService,
-    private route: ActivatedRoute,
-    private location: Location
+    // private route: ActivatedRoute,
+    // private location: Location
   ) { }
 
   ngOnInit() {

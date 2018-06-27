@@ -1,3 +1,15 @@
-<p>
-  notes works!
-</p>
+
+<li *ngFor="let note of notes" class="list-group-item">
+  {{ note.id }}) <strong>{{ note.title }}</strong> {{ note.content }}
+</li>
+<li class="list-group-item">
+  <div class="p-1">
+      <input #noteTitle type="text" placeholder="Add a title..." class="form-control mt-1">
+      <textarea #noteContent placeholder="Add a note..." class="form-control mt-1" rows="3"></textarea>
+      <button (click)="addNoteToCategory(createNote(noteTitle.value, noteContent.value));
+            noteTitle.value=''; noteContent.value=''"
+      class="btn btn-primary mt-2">
+        add
+      </button>
+  </div>
+</li>
