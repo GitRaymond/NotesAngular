@@ -21,7 +21,7 @@ export class CategoriesService {
       return this.http.get<Categories>(this.apiUrl + this.endpoint)
       .pipe(
         tap(categories => this.log(`fetched categories`)),
-        catchError(this.handleError('getCategories', []))
+        catchError(this.handleError<Categories>('getCategories'))
       );
   }
 
