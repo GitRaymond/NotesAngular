@@ -1,3 +1,4 @@
+///<reference path="../notes.service.ts"/>
 import { Component, OnInit, Input } from '@angular/core';
 import { Note } from '../models/Note';
 import { NotesService } from '../notes.service';
@@ -29,9 +30,12 @@ export class NotesComponent implements OnInit {
       .subscribe( notes => this.notes = notes.content);
   }
 
-  createNote(title: String, content: String): Note {
-    const note = { title: title,
-            content: content}
+  createNote(title: string, content: string): Note {
+    const note: Note = {
+                id: 0,
+            title: title,
+            content: content
+    }
     return note;
   }
 
