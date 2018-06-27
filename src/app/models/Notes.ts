@@ -1,5 +1,5 @@
 import {Note} from './Note';
 
-export class Categories {
+export class Notes {
   content: Note[];
 }

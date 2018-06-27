@@ -7,13 +7,15 @@ import { NotesComponent } from './notes/notes.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { CategoriesComponent } from './categories/categories.component';
 import { CategoryDetailComponent } from './category-detail/category-detail.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NotesComponent,
     CategoriesComponent,
-    CategoryDetailComponent
+    CategoryDetailComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
