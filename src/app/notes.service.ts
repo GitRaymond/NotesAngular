@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {Notes} from './models/notes'
 import {Categories} from './models/Categories';
 import {catchError, tap} from 'rxjs/operators';
 
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +27,15 @@ export class NotesService {
     return this.http.get<Notes>(url).pipe(
       tap(_ => this.log(`fetched notes list on category id=${id}`)),
       catchError(this.handleError<Notes>(`getNotesByCategory with category id=${id}`))
+    );
+  }
+
+  /** POST: add a new hero to the server */
+  addNoteToCategory (category_id: number, note: Note): Observable<Note> {
+    const url = `${this.apiUrl}${this.middlePoint}/${category_id}/${this.endPoint}`;
+    return this.http.post<Note>(url, note, httpOptions).pipe(
+      tap((note: Note) => this.log(`added note with id=${note.id}`)),
+      catchError(this.handleError<Hero>('addHero'))
     );
   }
 

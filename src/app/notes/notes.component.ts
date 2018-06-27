@@ -17,20 +17,29 @@ export class NotesComponent implements OnInit {
   notes: Note[];
 
   constructor(
-    private noteService: NotesService
+    private notesService: NotesService
   ) { }
 
   ngOnInit() {
-    console.log(this.category);
-    console.log('test');
     this.getNotesByCategory();
-    // this.getCategory();
   }
 
-  getNotesByCategory() {
-    console.log(this.category);
-    this.noteService.getNotesByCategory(this.category.id)
+  getNotesByCategory(): void {
+    this.notesService.getNotesByCategory(this.category.id)
       .subscribe( notes => this.notes = notes.content);
+  }
+
+  createNote(title: String, content: String): Note {
+    const note = { title: title,
+            content: content}
+    return note;
+  }
+
+  addNoteToCategory(note: Note): void {
+
+    // TODO: guard for wrong input
+    this.notesService.addNoteToCategory(this.category.id, note)
+      .subscribe( note => this.notes.push(note));
   }
 
 }
