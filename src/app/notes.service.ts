@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable, of} from 'rxjs';
-import {Notes} from './models/notes'
-import {Categories} from './models/Categories';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, of} from 'rxjs';
+import { Notes } from './models/Notes';
+import { Note }  from './models/Note';
+
 import {catchError, tap} from 'rxjs/operators';
 
 const httpOptions = {
@@ -21,24 +22,33 @@ export class NotesService {
   constructor(private http: HttpClient) { }
 
   /** GET notes based on Category ID */
-  getNotesByCategory(id: number): Observable<Notes> {
-    const url = `${this.apiUrl}${this.middlePoint}/${id}/${this.endPoint}`;
+  getNotesByCategory(category_id: number): Observable<Notes> {
+    const url = `${this.apiUrl}${this.middlePoint}/${category_id}/${this.endPoint}`;
 
     return this.http.get<Notes>(url).pipe(
-      tap(_ => this.log(`fetched notes list on category id=${id}`)),
-      catchError(this.handleError<Notes>(`getNotesByCategory with category id=${id}`))
+      tap(_ => this.log(`fetched notes list on category id=${category_id}`)),
+      catchError(this.handleError<Notes>(`getNotesByCategory with category id=${category_id}`))
     );
   }
 
-  /** POST: add a new hero to the server */
+  /** POST: add a new note to the server */
   addNoteToCategory (category_id: number, note: Note): Observable<Note> {
     const url = `${this.apiUrl}${this.middlePoint}/${category_id}/${this.endPoint}`;
     return this.http.post<Note>(url, note, httpOptions).pipe(
       tap((note: Note) => this.log(`added note with id=${note.id}`)),
-      catchError(this.handleError<Hero>('addHero'))
+      catchError(this.handleError<Note>('addNoteToCategory'))
     );
   }
 
+  /** DELETE: delete the hero from the server */
+  deleteNoteFromCategory (category_id: number, note: Note): Observable<Note> {
+    const url = `${this.apiUrl}${this.middlePoint}/${category_id}/${this.endPoint}/${note.id}`;
+
+    return  this.http.delete<Note>(url, httpOptions).pipe(
+      tap(_ => this.log(`deleted note id = ${note.id}`)),
+      catchError(this.handleError<Note>('deleteNoteFromCategory'))
+    )
+  }
 
 
   /**
