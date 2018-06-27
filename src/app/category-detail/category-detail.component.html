@@ -1,0 +1,9 @@
+<div *ngIf="category">
+  <h2>{{ category.name | uppercase }} Details</h2>
+  <div><span>id: </span>{{category.id}}</div>
+  <div>
+
+  </div>
+  <button (click)="goBack()">go back</button>
+  <button (click)="save()">save</button>
+</div>
