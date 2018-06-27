@@ -40,6 +40,15 @@ export class NotesService {
     );
   }
 
+  /** DELETE: delete the hero from the server */
+  deleteNoteFromCategory (category_id: number, note: Note): Observable<Note> {
+    const url = `${this.apiUrl}${this.middlePoint}/${category_id}/${this.endPoint}/${note.id}`;
+
+    return  this.http.delete<Note>(url, httpOptions).pipe(
+      tap(_ => this.log(`deleted note id = ${note.id}`)),
+      catchError(this.handleError<Note>('deleteNoteFromCategory'))
+    )
+  }
 
 
   /**

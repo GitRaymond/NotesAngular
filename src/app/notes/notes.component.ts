@@ -39,6 +39,12 @@ export class NotesComponent implements OnInit {
     return note;
   }
 
+  deleteNoteFromCategory(note: Note) {
+    this.notes = this.notes.filter(n => n !== note);
+    this.notesService.deleteNoteFromCategory(this.category.id, note)
+      .subscribe();
+  }
+
   addNoteToCategory(note: Note): void {
 
     // TODO: guard for wrong input
