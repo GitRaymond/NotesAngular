@@ -1,22 +1,28 @@
-.typewriter h1 {
-  overflow: hidden; /* Ensures the content is not revealed until the animation */
-  border-right: .15em solid orange; /* The typwriter cursor */
-  white-space: nowrap; /* Keeps the content on a single line */
-  margin: 0 auto; /* Gives that scrolling effect as the typing happens */
-  letter-spacing: .15em; /* Adjust as needed */
-  animation:
-    typing 3.5s steps(40, end),
-    blink-caret .75s step-end infinite;
+/* Google Fonts */
+@import url(https://fonts.googleapis.com/css?family=Anonymous+Pro);
+
+.line-1{
+  position: relative;
+  width: 4em;
+  margin: 0 auto;
+  border-right: 2px solid rgba(255,255,255,.75);
+  font-size: 280%;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  letter-spacing: 0.7rem;
 }
 
-/* The typing effect */
-@keyframes typing {
-  from { width: 0 }
-  to { width: 100% }
+/* Animation */
+.anim-typewriter{
+  animation: typewriter 1.5s steps(5) 1s 1 normal both,
+  blinkTextCursor 800ms steps(5) infinite normal;
 }
-
-/* The typewriter cursor effect */
-@keyframes blink-caret {
-  from, to { border-color: transparent }
-  50% { border-color: orange; }
+@keyframes typewriter{
+  from{width: 0;}
+  to{width: 4em;}
+}
+@keyframes blinkTextCursor{
+  from{border-right-color: rgba(255, 155, 13, 0.75);}
+  to{border-right-color: transparent;}
 }
