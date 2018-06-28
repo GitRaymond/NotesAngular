@@ -5,9 +5,6 @@ import { NotesService } from '../notes.service';
 import {Category} from '../models/Category';
 import { Location } from '@angular/common';
 
-import {
-  debounceTime, distinctUntilChanged, switchMap
-} from 'rxjs/operators';
 import {Subject} from 'rxjs';
 
 @Component({
@@ -53,7 +50,9 @@ export class NotesComponent implements OnInit {
   }
 
   save(note: Note): void {
-    this.notesService.updateNote(this.category.id, note).subscribe();
+    if (note.title !== '' && note.content !== ''){
+      this.notesService.updateNote(this.category.id, note).subscribe();
+    }
   }
 
   goBack(): void {

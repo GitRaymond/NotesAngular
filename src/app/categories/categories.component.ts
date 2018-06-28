@@ -2,7 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {CategoriesService} from '../categories.service';
 import {Category} from '../models/Category';
 import {ActivatedRoute} from '@angular/router';
-import { Location } from '@angular/common';
+import {Location} from '@angular/common';
+import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 
 @Component({
   selector: 'app-categories',
@@ -18,7 +19,8 @@ export class CategoriesComponent implements OnInit {
     private categoryService: CategoriesService,
     // private route: ActivatedRoute,
     // private location: Location
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.getCategories();
@@ -38,8 +40,11 @@ export class CategoriesComponent implements OnInit {
   }
 
   add(category: Category): void {
-    this.categoryService.addCategory(category)
-      .subscribe(category => this.categories.push(category));
+    if (category.name !== '') {
+      console.log(category);
+      this.categoryService.addCategory(category)
+        .subscribe(category => this.categories.push(category));
+    }
   }
 
   deleteCategory(category: Category): void {
@@ -48,7 +53,9 @@ export class CategoriesComponent implements OnInit {
   }
 
   save(category: Category): void {
-    this.categoryService.updateCategory(category).subscribe();
+    if (category.name !== '') {
+      this.categoryService.updateCategory(category).subscribe();
+    }
   }
 
 }

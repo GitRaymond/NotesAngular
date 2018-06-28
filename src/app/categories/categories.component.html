@@ -1,7 +1,7 @@
 <div class="row justify-content-center mt-5">
   <div class="">
     <form class="form-inline">
-      <input #categoryName type="text" class="form-control mr-3" placeholder="Add a category">
+      <input #categoryName type="text" class="form-control mr-3" placeholder="Add a category" required>
       <div id="add">
         <button (click)="add(createCategory(categoryName.value))" class="btn btn-primary"><i
           class="fas fa-plus-square"></i> Add
