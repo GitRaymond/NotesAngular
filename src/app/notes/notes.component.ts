@@ -3,7 +3,12 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Note } from '../models/Note';
 import { NotesService } from '../notes.service';
 import {Category} from '../models/Category';
+import { Location } from '@angular/common';
 
+import {
+  debounceTime, distinctUntilChanged, switchMap
+} from 'rxjs/operators';
+import {Subject} from 'rxjs';
 
 @Component({
   selector: 'app-notes',
@@ -14,11 +19,13 @@ export class NotesComponent implements OnInit {
 
   @Input() category: Category;
 
+  private updateNote = new Subject<Note>();
 
   notes: Note[];
 
   constructor(
-    private notesService: NotesService
+    private notesService: NotesService,
+    private location: Location
   ) { }
 
   ngOnInit() {
@@ -30,9 +37,9 @@ export class NotesComponent implements OnInit {
       .subscribe( notes => this.notes = notes.content);
   }
 
-  createNote(title: string, content: string): Note {
+  createNote(title: string, content: string, id?:number ): Note {
     const note: Note = {
-                id: 0,
+              id: id ? id : 0,
             title: title,
             content: content
     }
@@ -45,11 +52,19 @@ export class NotesComponent implements OnInit {
       .subscribe();
   }
 
-  addNoteToCategory(note: Note): void {
+  save(note: Note): void {
+    this.notesService.updateNote(this.category.id, note).subscribe();
+  }
 
+  goBack(): void {
+    this.location.back();
+  }
+
+  addNoteToCategory(note: Note): void {
     // TODO: guard for wrong input
     this.notesService.addNoteToCategory(this.category.id, note)
       .subscribe( note => this.notes.push(note));
   }
+
 
 }

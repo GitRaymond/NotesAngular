@@ -29,5 +29,26 @@ export class CategoriesComponent implements OnInit {
       .subscribe(categories => this.categories = categories.content);
   }
 
+  createCategory(name: string, id?: number): Category {
+    const cat: Category = {
+      id: id ? id : 0,
+      name: name
+    };
+    return cat;
+  }
+
+  add(category: Category): void {
+    this.categoryService.addCategory(category)
+      .subscribe(category => this.categories.push(category));
+  }
+
+  deleteCategory(category: Category): void {
+    this.categories = this.categories.filter(c => c !== category);
+    this.categoryService.deleteCategory(category).subscribe();
+  }
+
+  save(category: Category): void {
+    this.categoryService.updateCategory(category).subscribe();
+  }
 
 }

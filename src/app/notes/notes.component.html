@@ -1,9 +1,13 @@
-<li *ngFor="let note of notes" class="list-group-item d-flex justify-content-between align-items-center">
+<li *ngFor="let note of notes; let i = index" class="list-group-item d-flex justify-content-between align-items-center">
   <div>
-    {{ note.id }}) <strong>{{ note.title }}</strong> {{ note.content }}
+
+    <!--({{ note.id }})-->
+   <p (keyup)="save(createNote(title.textContent, content.textContent, note.id))" #title contenteditable="true" class="p-1 m-0"><strong>{{ note.title }}</strong></p>
+   <p (keyup)="save(createNote(title.textContent, content.textContent, note.id))" contenteditable="true" #content class="p-1 m-0">{{ note.content }}</p>
+
   </div>
   <div>
-    <button (click)="deleteNoteFromCategory(note)" class="btn btn-outline-danger"><i class="far fa-trash-alt"></i></button>
+    <button (click)="deleteNoteFromCategory(note)" class="btn btn-outline-success"><i class="fas fa-check"></i></button>
   </div>
 
 
@@ -15,7 +19,7 @@
       <button (click)="addNoteToCategory(createNote(noteTitle.value, noteContent.value));
             noteTitle.value=''; noteContent.value=''"
       class="btn btn-primary mt-2">
-        add
+        <i class="fas fa-plus-square"></i> Add
       </button>
   </div>
 </li>

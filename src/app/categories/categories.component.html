@@ -1,6 +1,31 @@
-<div class="card mt-5" *ngFor="let category of categories" >
-  <div class="card-header">
-    {{category.id}}) {{category.name}}
+<div class="row justify-content-center mt-5">
+  <div class="">
+    <form class="form-inline">
+      <input #categoryName type="text" class="form-control mr-3" placeholder="Add a category">
+      <div id="add">
+        <button (click)="add(createCategory(categoryName.value))" class="btn btn-primary"><i
+          class="fas fa-plus-square"></i> Add
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<div class="card mt-5" *ngFor="let category of categories">
+  <div class="card-header " style="font-size: 1.5em;">
+    <div class="row px-3 justify-content-between">
+      <div class="font-weight-bold "
+           (keyup)="save(createCategory(name.textContent, category.id))"
+           #name contenteditable="true">
+        {{category.name}}
+        <!--({{category.id}})-->
+      </div>
+      <div>
+        <button (click)="deleteCategory(category)" class="btn btn-outline-secondary"><i class="far fa-trash-alt"></i>
+        </button>
+      </div>
+    </div>
   </div>
   <ul class="list-group list-group-flush">
     <app-notes [category]="category"></app-notes>
